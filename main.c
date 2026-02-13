@@ -6,11 +6,12 @@ int main(void)
 	char board[BOARD_HEIGHT][BOARD_WIDTH];
 	create_stage(board);
 	// Output //
+	printf("\033[2J"); // Clear screen
 	print_to_terminal(board);
 
 	char input;
-	int* pos_x;
-	int* pos_y;
+	short* pos_x;
+	short* pos_y;
 
 	*pos_x = 4;
 	*pos_y = 4;
@@ -18,10 +19,11 @@ int main(void)
 	// Game playing
 	while (1) {
 		do {
-		handle_input(board, pos_x, pos_y, getch());
+		input = getch();
+		handle_input(board, pos_x, pos_y, input);
 		
-		if (input == '0') {
-			break;
+		if (input == 'q') {
+			exit(1);
 		}
 
 		} while (input != '\n');

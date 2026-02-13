@@ -11,21 +11,23 @@
 #define INITIAL_PIECE_COUNT 32
 #define BOARD_WIDTH 8
 #define BOARD_HEIGHT 8
+#define BOARD_XOFFSET 6
+#define BOARD_YOFFSET 4
 
 typedef struct
 {
 	// Name //
 	char name;
 	// Positions //
-	int x_pos;
-	int y_pos;
+	short x_pos;
+	short y_pos;
 } Piece;
 
 typedef struct 	
 {
 	// Position // 
-	int x_pos;
-	int y_pos;
+	short x_pos;
+	short y_pos;
 } Cursor;
 
 /*
@@ -74,6 +76,6 @@ Parameters:
 Returns:
 	void
 */
-void handle_input(char board[BOARD_HEIGHT][BOARD_WIDTH], int* pos_x, int* pos_y, char input);
+void handle_input(char board[BOARD_HEIGHT][BOARD_WIDTH], short* pos_x, short* pos_y, char input);
 
 #endif

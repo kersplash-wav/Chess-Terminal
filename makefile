@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -std=c99
+CFLAGS = -std=c99
 TARGET = chess
 OBJ = main.o piece.o stage.o input.o
 

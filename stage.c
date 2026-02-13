@@ -19,6 +19,9 @@ void create_stage(char board[BOARD_HEIGHT][BOARD_WIDTH])
 
 void print_to_terminal(char board[BOARD_HEIGHT][BOARD_WIDTH])
 {
+    printf("\033[2J"); // Clear screen
+    printf("\n");
+
     // Top of the Board //
     printf("     a b c d e f g h     \n");
     printf("   +-----------------+   \n");
@@ -27,8 +30,21 @@ void print_to_terminal(char board[BOARD_HEIGHT][BOARD_WIDTH])
     {
         printf(" %d | ", BOARD_HEIGHT - x);
         // Print Columns //
-        for (int y = 0; y < BOARD_WIDTH; y++)
+        for (int y = 0; y < BOARD_WIDTH; y++) {
+            if (board[x][y] == '@') {
+                printf(ANSI_COLOR_GREEN "@ " ANSI_COLOR_RESET);
+                continue;
+            }
+            if (board[x][y] >= 'A' && board[x][y] <= 'Z') {
+                printf(ANSI_COLOR_BLUE "%c " ANSI_COLOR_RESET, board[x][y]);
+                continue;
+            }
+            if (board[x][y] >= 'a' && board[x][y] <= 'z') {
+                printf(ANSI_COLOR_RED "%c " ANSI_COLOR_RESET, board[x][y]);
+                continue;
+            }
             printf("%c ", board[x][y]);
+        }
         // New Row //
         printf("| %d\n", BOARD_HEIGHT - x);
     }

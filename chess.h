@@ -6,13 +6,27 @@
 #include <string.h>
 #include <stdbool.h>
 #include <math.h>
-#include <conio.h>
+
+#ifdef _WIN32
+    #include <conio.h>  // Use the native Windows library
+#else
+    #include "posix_input.h" // Use our custom UNIX definition for Windows equivalent functions
+#endif
+
 
 #define INITIAL_PIECE_COUNT 32
 #define BOARD_WIDTH 8
 #define BOARD_HEIGHT 8
 #define BOARD_XOFFSET 6
 #define BOARD_YOFFSET 4
+
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_YELLOW  "\x1b[33m"
+#define ANSI_COLOR_BLUE    "\x1b[34m"
+#define ANSI_COLOR_MAGENTA "\x1b[35m"
+#define ANSI_COLOR_CYAN    "\x1b[36m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
 
 typedef struct
 {
@@ -56,18 +70,6 @@ void print_to_terminal(char board[BOARD_HEIGHT][BOARD_WIDTH]);
 
 /*
 Name: 
-	movement
-Purpose:
-	
-Parameters:
-
-Returns: 
-
-*/
-void movement();
-
-/*
-Name: 
 	
 Purpose:
 	
@@ -76,6 +78,8 @@ Parameters:
 Returns:
 	void
 */
-void handle_input(char board[BOARD_HEIGHT][BOARD_WIDTH], short* pos_x, short* pos_y, char input);
+void handle_input(char board[BOARD_HEIGHT][BOARD_WIDTH], short* pos_x, short* pos_y, char input, char* current_piece);
+
+char select_square(char board[BOARD_HEIGHT][BOARD_WIDTH], short pos_x, short pos_y, char* current_piece);
 
 #endif

@@ -1,0 +1,21 @@
+CC = gcc
+CFLAGS = -Wall -std=c99
+TARGET = chess
+OBJ = main.o piece.o stage.o input.o
+
+all: $(TARGET)
+
+$(TARGET): $(OBJ)
+	$(CC) $(CFLAGS) $^ -o $@
+
+%.o: %.c chess.h
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	del $(OBJ) $(TARGET)
+
+.PHONY: 
+	all clean
+
+run: $(TARGET)
+	./$(TARGET)

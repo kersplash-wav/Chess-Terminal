@@ -13,12 +13,15 @@
     #include "posix_input.h" // Use our custom UNIX definition for Windows equivalent functions
 #endif
 
+#define EMPTY_SQUARE '#'
+#define MOVE_SQUARE '@'
+#define CAPTURE_SQUARE '!'
 
 #define INITIAL_PIECE_COUNT 32
 #define BOARD_WIDTH 8
 #define BOARD_HEIGHT 8
 #define BOARD_XOFFSET 6
-#define BOARD_YOFFSET 4
+#define BOARD_YOFFSET 3
 
 #define ANSI_COLOR_RED     "\x1b[31m"
 #define ANSI_COLOR_GREEN   "\x1b[32m"
@@ -28,8 +31,7 @@
 #define ANSI_COLOR_CYAN    "\x1b[36m"
 #define ANSI_COLOR_RESET   "\x1b[0m"
 
-typedef struct
-{
+typedef struct{
 	// Name //
 	char name;
 	// Positions //
@@ -37,12 +39,15 @@ typedef struct
 	short y_pos;
 } Piece;
 
-typedef struct 	
-{
-	// Position // 
-	short x_pos;
-	short y_pos;
-} Cursor;
+typedef struct {
+	Piece piece;
+	bool first_move;
+} Pawn;
+
+typedef struct {
+	Piece piece;
+	// Will prbably need other variables to deal with checks + checkmate
+} King;
 
 /*
 Name: 
@@ -54,7 +59,7 @@ Parameters:
 Returns: 
 	void
 */
-void create_stage(char board[BOARD_HEIGHT][BOARD_WIDTH]);
+void create_stage(char board[BOARD_HEIGHT][BOARD_WIDTH], Piece pieces[INITIAL_PIECE_COUNT]);
 
 /*
 Name: 
@@ -81,5 +86,9 @@ Returns:
 void handle_input(char board[BOARD_HEIGHT][BOARD_WIDTH], short* pos_x, short* pos_y, char input, char* current_piece);
 
 char select_square(char board[BOARD_HEIGHT][BOARD_WIDTH], short pos_x, short pos_y, char* current_piece);
+
+void whitePawnSelected(char board[BOARD_HEIGHT][BOARD_WIDTH], short pos_x, short pos_y);
+
+void blackPawnSelected(char board[BOARD_HEIGHT][BOARD_WIDTH], short pos_x, short pos_y);
 
 #endif

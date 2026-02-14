@@ -1,20 +1,31 @@
 #include "chess.h"
 
-void create_stage(char board[BOARD_HEIGHT][BOARD_WIDTH])
+void create_stage(char board[BOARD_HEIGHT][BOARD_WIDTH], Piece pieces[INITIAL_PIECE_COUNT])
 {
     char board_cache[BOARD_HEIGHT][BOARD_WIDTH] =
     {
         {'r', 'n', 'b', 'k', 'q', 'b', 'n', 'r'},
         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
-        {'#', '#', '#', '#', '#', '#', '#', '#'},
-        {'#', '#', '#', '#', '#', '#', '#', '#'},
-        {'#', '#', '#', '#', '#', '#', '#', '#'},
-        {'#', '#', '#', '#', '#', '#', '#', '#'},
+        {EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE},
+        {EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE},
+        {EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE},
+        {EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE, EMPTY_SQUARE},
         {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'} 
     };
 
     memcpy(board, board_cache, sizeof(char)*(BOARD_HEIGHT * BOARD_WIDTH));
+
+    int index = 0;
+    for (int i = 0; i < BOARD_HEIGHT; i++) {
+        for (int j = 0; j < BOARD_WIDTH; j++) {
+            if (board[i][j] == EMPTY_SQUARE) continue;
+            pieces[index].name = board[i][j];
+            pieces[index].x_pos = j;
+            pieces[index].y_pos = i;
+            index++;
+        }
+    }
 }
 
 void print_to_terminal(char board[BOARD_HEIGHT][BOARD_WIDTH])
@@ -31,7 +42,7 @@ void print_to_terminal(char board[BOARD_HEIGHT][BOARD_WIDTH])
         printf(" %d | ", BOARD_HEIGHT - x);
         // Print Columns //
         for (int y = 0; y < BOARD_WIDTH; y++) {
-            if (board[x][y] == '@') {
+            if (board[x][y] == MOVE_SQUARE) {
                 printf(ANSI_COLOR_GREEN "@ " ANSI_COLOR_RESET);
                 continue;
             }
@@ -41,6 +52,10 @@ void print_to_terminal(char board[BOARD_HEIGHT][BOARD_WIDTH])
             }
             if (board[x][y] >= 'a' && board[x][y] <= 'z') {
                 printf(ANSI_COLOR_RED "%c " ANSI_COLOR_RESET, board[x][y]);
+                continue;
+            }
+            if (board[x][y] == CAPTURE_SQUARE) {
+                printf(ANSI_COLOR_YELLOW "! " ANSI_COLOR_RESET);
                 continue;
             }
             printf("%c ", board[x][y]);

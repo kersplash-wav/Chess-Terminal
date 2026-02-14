@@ -4,7 +4,8 @@ int main(void)
 {
 	// Initialize Board //
 	char board[BOARD_HEIGHT][BOARD_WIDTH];
-	create_stage(board);
+	Piece pieces[INITIAL_PIECE_COUNT];
+	create_stage(board, pieces);
 	// Output //
 	print_to_terminal(board);
 

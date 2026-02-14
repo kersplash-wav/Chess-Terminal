@@ -12,7 +12,7 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c $<
 
 clean:
-	rm -rf $(OBJ) $(TARGET)
+	rm -rf $(OBJ) $(TARGET) $(TARGET).exe
 
 .PHONY: 
 	all clean

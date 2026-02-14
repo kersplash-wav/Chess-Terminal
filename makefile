@@ -6,13 +6,13 @@ OBJ = main.o piece.o stage.o input.o
 all: $(TARGET)
 
 $(TARGET): $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $(TARGET)
 
 %.o: %.c chess.h
-	$(CC) $(CFLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) -c $<
 
 clean:
-	del $(OBJ) $(TARGET)
+	rm -rf $(OBJ) $(TARGET) $(TARGET).exe
 
 .PHONY: 
 	all clean
